@@ -1,7 +1,6 @@
 // =====================================================================
 // MODULAR HORSE STABLE SYSTEM (1:24 Scale - Schleich Compatible)
 // Optimized for QIDI Q1 Pro 3D Printer (Build Volume: 245 x 245 x 240 mm)
-// License: MIT
 // Author: Bartosz Nowak (2026)
 //
 // Key Features:

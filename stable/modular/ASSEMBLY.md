@@ -203,6 +203,6 @@ To expand an existing stable:
 
 ---
 
-## License
+## Copyright
 
-This project is licensed under the **MIT License**. You are free to print, modify, expand, and share these designs with attribution to **Bartosz Nowak (2026)**.
+Copyright (c) 2026 **Bartosz Nowak**. All rights reserved.

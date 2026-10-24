@@ -1,6 +1,5 @@
 // =====================================================================
 // STANDARD MONOLITHIC HORSE STABLE (1:24 Scale - Schleich Compatible)
-// License: MIT
 // Author: Bartosz Nowak (2026)
 // Calibrated for 1:24 scale model horses (Schleich, CollectA, Safari Ltd.):
 // - Horse dimensions: length ~140-170 mm, height ~115-150 mm, width ~45-50 mm

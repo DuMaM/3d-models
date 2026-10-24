@@ -2,7 +2,6 @@
 
 A fully parametric, modular 3D printable horse stable system designed in **OpenSCAD** and engineered for desktop FDM 3D printers, specifically the **QIDI Q1 Pro** ($245 \times 245 \times 240\text{ mm}$ build envelope).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OpenSCAD](https://img.shields.io/badge/OpenSCAD-2021.01+-blue.svg)](https://openscad.org)
 [![QIDI Q1 Pro](https://img.shields.io/badge/3D%20Printer-QIDI%20Q1%20Pro%20(245mm)-green.svg)](https://qidi3d.com)
 
@@ -123,8 +122,6 @@ To customize your stable:
 
 ---
 
-## License
+## Copyright
 
-This project is open source and distributed under the terms of the **MIT License**. See [`LICENSE`](LICENSE) for details.
-
-Copyright (c) 2026 **Bartosz Nowak**.
+Copyright (c) 2026 **Bartosz Nowak**. All rights reserved.

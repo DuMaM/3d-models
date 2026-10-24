@@ -4,7 +4,6 @@ The **Standard Monolithic Horse Stable** is a complete, whole-building 3D printa
 
 Unlike the [Modular Stable](../modular/), which divides the stable into compact $\le 200\text{ mm}$ panels with dovetail joints for compact beds like the QIDI Q1 Pro ($245 \times 245\text{ mm}$), this **Standard version** features complete, unified structural assemblies (full perimeter walls with integrated stall dividers, full roof structure, and pre-grouped hardware). It is ideal for large-format 3D printers ($300 \times 300\text{ mm}$ or larger) or users looking for minimum assembly steps.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OpenSCAD](https://img.shields.io/badge/OpenSCAD-2021.01+-blue.svg)](https://openscad.org)
 
 ---
@@ -80,8 +79,6 @@ Unlike the [Modular Stable](../modular/), which divides the stable into compact 
 
 ---
 
-## License
+## Copyright
 
-This project is licensed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
-
-Copyright (c) 2026 **Bartosz Nowak**.
+Copyright (c) 2026 **Bartosz Nowak**. All rights reserved.

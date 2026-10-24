@@ -2,7 +2,6 @@
 
 A comprehensive parametric 3D model system designed in **OpenSCAD** for 1:24 scale model horses (Schleich, CollectA, Safari Ltd., Breyer 1:24, and custom 3D printed horses up to $150\text{ mm}$ tall).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OpenSCAD](https://img.shields.io/badge/OpenSCAD-2021.01+-blue.svg)](https://openscad.org)
 
 ---
@@ -65,8 +64,6 @@ stable/
 
 ---
 
-## License
+## Copyright
 
-Both designs are open source and licensed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
-
-Copyright (c) 2026 **Bartosz Nowak**.
+Copyright (c) 2026 **Bartosz Nowak**. All rights reserved.
