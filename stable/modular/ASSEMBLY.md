@@ -58,19 +58,19 @@ Every part is optimized to print on compact 3D printer beds such as the **QIDI Q
 
 | Part File (`.stl`) | Qty | Dimensions ($X \times Y \times Z$ mm) | QIDI Q1 Pro Fit |
 |---|---|---|---|
-| [`floor_stall_tile.stl`](file:///home/bnowak/Projekty/3d-models/stable/floor_stall_tile.stl) | 2 | $140 \times 200 \times 4$ mm | Fits ($200 < 245$ mm) |
-| [`floor_aisle_tile.stl`](file:///home/bnowak/Projekty/3d-models/stable/floor_aisle_tile.stl) | 1 | $95 \times 200 \times 4$ mm | Fits |
-| [`wall_side_panel.stl`](file:///home/bnowak/Projekty/3d-models/stable/wall_side_panel.stl) | 2 | $200 \times 4 \times 170$ mm | Fits flat ($200 \times 170$ mm) |
-| [`stall_partition.stl`](file:///home/bnowak/Projekty/3d-models/stable/stall_partition.stl) | 2 | $140 \times 4 \times 170$ mm | Fits flat |
-| [`stall_front_panel.stl`](file:///home/bnowak/Projekty/3d-models/stable/stall_front_panel.stl) | 2 | $200 \times 4 \times 170$ mm | Fits flat |
-| [`gable_side_pillar.stl`](file:///home/bnowak/Projekty/3d-models/stable/gable_side_pillar.stl) | 4 | $144 \times 4 \times 170$ mm | Fits flat |
-| [`gable_doorway_portal.stl`](file:///home/bnowak/Projekty/3d-models/stable/gable_doorway_portal.stl) | 2 | $95 \times 4 \times 170$ mm | Fits flat |
-| [`gable_triangle_half.stl`](file:///home/bnowak/Projekty/3d-models/stable/gable_triangle_half.stl) | 4 | $193 \times 4 \times 75$ mm | Fits flat |
-| [`roof_slope_panel.stl`](file:///home/bnowak/Projekty/3d-models/stable/roof_slope_panel.stl) | 2 | $200 \times 200 \times 2.8$ mm | Fits flat ($200 \times 200$ mm) |
-| [`roof_truss_half.stl`](file:///home/bnowak/Projekty/3d-models/stable/roof_truss_half.stl) | 4 | $190 \times 4 \times 75$ mm | Fits flat |
-| [`main_gate_wing.stl`](file:///home/bnowak/Projekty/3d-models/stable/main_gate_wing.stl) | 2 | $40 \times 3.5 \times 161$ mm | Fits flat |
-| [`stall_door.stl`](file:///home/bnowak/Projekty/3d-models/stable/stall_door.stl) | 2 | $74 \times 3 \times 104$ mm | Fits flat |
-| [`window_frame.stl`](file:///home/bnowak/Projekty/3d-models/stable/window_frame.stl) | 2 | $55 \times 4 \times 47$ mm | Fits flat |
+| [`floor_stall_tile.stl`](floor_stall_tile.stl) | 2 | $140 \times 200 \times 4$ mm | Fits ($200 < 245$ mm) |
+| [`floor_aisle_tile.stl`](floor_aisle_tile.stl) | 1 | $95 \times 200 \times 4$ mm | Fits |
+| [`wall_side_panel.stl`](wall_side_panel.stl) | 2 | $200 \times 4 \times 170$ mm | Fits flat ($200 \times 170$ mm) |
+| [`stall_partition.stl`](stall_partition.stl) | 2 | $140 \times 4 \times 170$ mm | Fits flat |
+| [`stall_front_panel.stl`](stall_front_panel.stl) | 2 | $200 \times 4 \times 170$ mm | Fits flat |
+| [`gable_side_pillar.stl`](gable_side_pillar.stl) | 4 | $144 \times 4 \times 170$ mm | Fits flat |
+| [`gable_doorway_portal.stl`](gable_doorway_portal.stl) | 2 | $95 \times 4 \times 170$ mm | Fits flat |
+| [`gable_triangle_half.stl`](gable_triangle_half.stl) | 4 | $193 \times 4 \times 75$ mm | Fits flat |
+| [`roof_slope_panel.stl`](roof_slope_panel.stl) | 2 | $200 \times 200 \times 2.8$ mm | Fits flat ($200 \times 200$ mm) |
+| [`roof_truss_half.stl`](roof_truss_half.stl) | 4 | $190 \times 4 \times 75$ mm | Fits flat |
+| [`main_gate_wing.stl`](main_gate_wing.stl) | 2 | $40 \times 3.5 \times 161$ mm | Fits flat |
+| [`stall_door.stl`](stall_door.stl) | 2 | $74 \times 3 \times 104$ mm | Fits flat |
+| [`window_frame.stl`](window_frame.stl) | 2 | $55 \times 4 \times 47$ mm | Fits flat |
 
 *Note: For a 4-stall setup (`segment_count = 2`), double the quantities of floor tiles, side walls, stall partitions, stall fronts, doors, windows, and roof slopes.*
 
@@ -78,24 +78,37 @@ Every part is optimized to print on compact 3D printer beds such as the **QIDI Q
 
 ## Step-by-Step Assembly
 
-```
-+---------------------------------------------------------------+
-|                        ROOF SLOPES                            |
-|             +-------------+      +-------------+              |
-|            /  Left Slope  \      / Right Slope \              |
-|           /----------------\    /----------------\            |
-|                   ROOF TRUSSES & GABLE TRIANGLES              |
-+---------------------------------------------------------------+
-|                       WALL PANELS                             |
-|    +-------------+   +-------------------+   +-------------+  |
-|    |  Left Wall  |   |  Stall Partitions |   | Right Wall  |  |
-|    |  (Windows)  |   |    & Box Fronts   |   |  (Windows)  |  |
-+---------------------------------------------------------------+
-|                       FLOOR TILES                             |
-|    +-------------+   +-------------------+   +-------------+  |
-|    | Stall Left  |<=>|   Central Aisle   |<=>| Stall Right |  |
-|    |  [Dovetail] |   |     [Dovetail]    |   |  [Dovetail] |  |
-+---------------------------------------------------------------+
+```mermaid
+flowchart TD
+    subgraph ROOF["ROOF SLOPES"]
+        direction TB
+        subgraph SLOPES["Roof Slopes"]
+            direction LR
+            RS_L["Left Slope (roof_slope_panel)"]
+            RS_R["Right Slope (roof_slope_panel)"]
+        end
+        TRUSS["ROOF TRUSSES & GABLE TRIANGLES\n(roof_truss_half / gable_triangle_half)"]
+        SLOPES --- TRUSS
+    end
+
+    subgraph WALLS["WALL PANELS"]
+        direction LR
+        W_L["Left Wall with Windows\n(wall_side_panel)"]
+        W_M["Stall Partitions & Box Fronts\n(stall_partition / stall_front_panel)"]
+        W_R["Right Wall with Windows\n(wall_side_panel)"]
+    end
+
+    subgraph FLOOR["FLOOR TILES"]
+        direction LR
+        F_L["Stall Left\n[Dovetail]"]
+        F_C["Central Aisle\n[Dovetail]"]
+        F_R["Stall Right\n[Dovetail]"]
+        F_L <-->|"Dovetail"| F_C
+        F_C <-->|"Dovetail"| F_R
+    end
+
+    ROOF -->|"Mounted atop walls"| WALLS
+    WALLS -->|"Slots into 1.8 mm floor guide grooves"| FLOOR
 ```
 
 ### Step 1: Floor Base Assembly
@@ -106,7 +119,7 @@ Every part is optimized to print on compact 3D printer beds such as the **QIDI Q
 5. If assembling multiple bay segments, slide the next segment's aisle and stall tiles into the longitudinal dovetails along the front/rear edges.
 6. *(Optional)* Apply a tiny drop of CA glue into each dovetail socket if you do not plan to disassemble the floor later.
 
-![Floor Assembly](file:///home/bnowak/Projekty/3d-models/stable/qidi_bed_floor.png)
+![Floor Assembly](qidi_bed_floor.png)
 
 ---
 
@@ -117,7 +130,7 @@ Every part is optimized to print on compact 3D printer beds such as the **QIDI Q
 4. Ensure the pre-modeled vertical dovetail columns interlock where the partition meets the front wall.
 5. Verify that the pintle hinge pins on the stall door frames face toward the aisle.
 
-![Stalls Overview](file:///home/bnowak/Projekty/3d-models/stable/qidi_bed_stalls.png)
+![Stalls Overview](qidi_bed_stalls.png)
 
 ---
 
@@ -127,7 +140,7 @@ Every part is optimized to print on compact 3D printer beds such as the **QIDI Q
 3. Interlock the end dovetails with the partition walls.
 4. Push firmly downwards until the wall sits completely seated against the floor base.
 
-![Side Wall Plate](file:///home/bnowak/Projekty/3d-models/stable/qidi_bed_side_wall.png)
+![Side Wall Plate](qidi_bed_side_wall.png)
 
 ---
 
@@ -140,7 +153,7 @@ Every part is optimized to print on compact 3D printer beds such as the **QIDI Q
    - The two halves meet at the apex ridge with a keyed center overlap.
 3. Repeat for the rear gable wall (or use a closed portal configuration if preferred).
 
-![Gable Plate](file:///home/bnowak/Projekty/3d-models/stable/qidi_bed_gable.png)
+![Gable Plate](qidi_bed_gable.png)
 
 ---
 
@@ -158,7 +171,7 @@ The stable uses authentic **pintle and strap barrel hinges**:
    - Push the window frames into the window cutouts in the side walls.
    - They feature an exterior mounting flange for a clean snap-fit without glue.
 
-![Hardware Plate](file:///home/bnowak/Projekty/3d-models/stable/qidi_bed_doors_windows.png)
+![Hardware Plate](qidi_bed_doors_windows.png)
 
 ---
 
@@ -169,7 +182,7 @@ The stable uses authentic **pintle and strap barrel hinges**:
 4. **Removable Roof Play Feature:**
    - The roof panels can be left unglued so that they can be easily lifted off for overhead access to play with horses and accessories inside the stalls!
 
-![Roof Plate](file:///home/bnowak/Projekty/3d-models/stable/qidi_bed_roof.png)
+![Roof Plate](qidi_bed_roof.png)
 
 ---
 
@@ -188,7 +201,7 @@ To expand an existing stable:
 4. Re-attach the rear gable wall at the new end.
 5. Add the new roof slope panels.
 
-![Interior View](file:///home/bnowak/Projekty/3d-models/stable/stable_interior.png)
+![Interior View](stable_interior.png)
 
 ---
 
