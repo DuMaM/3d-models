@@ -46,13 +46,13 @@ explosion = 45; // [20:5:100]
 // Main barn gate opening angle [degrees]
 gate_open_angle = 35; // [0:5:120]
 
-// Stall door opening angle [degrees]
-stall_door_open_angle = 25; // [0:5:90]
+// Stall door opening angle [degrees] (0 = closed, 180 = folded flat onto stall front wall)
+stall_door_open_angle = 25; // [0:5:180]
 
 /* [Main Dimensions (Calibrated for 150mm tall x 171mm long horse)] */
 stall_length = 200;          // Length of 1 stall bay in Y axis (horse is 171 mm -> 29 mm clearance)
-stall_width = 140;           // Width of 1 stall in X axis (horse is 50 mm -> 90 mm clearance)
-aisle_width = 95;            // Width of central aisle in X axis
+stall_width = 195;           // Depth of stall in X axis (horse 171 mm walks in straight and can turn around)
+aisle_width = 180;           // Width of central aisle in X axis (horse 171 mm long can turn 90 deg in aisle)
 wall_height = 170;           // Wall height to eaves (horse is 150 mm -> wall is 20 mm taller than ears)
 roof_pitch_height = 75;      // Height of roof ridge above eaves (total interior height: 245 mm)
 wall_thickness = 4.0;        // Structural wall thickness
@@ -75,6 +75,8 @@ dovetail_length = 8.0;       // Dovetail projection [mm]
 dovetail_clearance = 0.35;   // 3D printing fit clearance [mm]
 
 /* [Filament-Pin Hinge System (Indestructible 1.75mm Filament Pin)] */
+stall_front_th       = 3.0;  // Stall front wall panel thickness (hinge anchor reference)
+door_leaf_th         = 2.6;  // Stall door leaf thickness (hinge axis offset = th/2 for flat 180 deg fold)
 pin_bore_r            = 1.05; // 2.1mm hole diameter (0.175mm clearance for 1.75mm filament)
 knuckle_r             = 3.3;  // 6.6mm outer diameter (massive 2.25mm thick walls, will never break)
 knuckle_gap           = 0.45; // Vertical fit clearance between meshing knuckles
@@ -152,17 +154,20 @@ else if (view == "qidi_bed_stalls") {
         rotate([0, 90, 0])
             stall_front_panel(left = true);
 
-    // Stall partition: 140 mm wide, 110 mm tall, 3 mm thick -> lay flat rotated 90 deg
+    // Stall partition: 195 mm wide, 110 mm tall, 3 mm thick -> lay flat rotated 90 deg
     translate([5, -stall_width/2, 3.0])
         rotate([90, 0, 90])
             stall_partition_panel();
 }
 else if (view == "qidi_bed_floor") {
-    // GRAY CONCRETE FILAMENT: Stall floor (140x200) + Aisle floor (95x200) (combined 235x200 mm <= 245)
+    // GRAY CONCRETE FILAMENT: Stall floor (195x200) + Aisle floor (180x200)
+    // NOTE: 195 + 180 = 375 mm > 245 mm bed, so the tiles are shown stacked
+    // here (preview only) -> print separately via views floor_stall_tile /
+    // floor_aisle_tile (each tile fits the bed on its own pass).
     if (show_qidi_bed) qidi_build_bed();
     translate([-QIDI_X/2 + 5, -QIDI_Y/2 + 22, 0]) {
         floor_stall_tile(left = true);
-        translate([stall_width + 2, 0, 0])
+        translate([0, 0, floor_thickness + 0.5])
             floor_aisle_tile();
     }
 }
@@ -174,7 +179,7 @@ else if (view == "qidi_bed_side_wall") {
             wall_side_panel();
 }
 else if (view == "qidi_bed_gable") {
-    // WHITE/CREAM FILAMENT: Gable side pillars (144x170) + doorway portal (95x170)
+    // WHITE/CREAM FILAMENT: Gable side pillars (199x170) + doorway portal (180x170)
     if (show_qidi_bed) qidi_build_bed();
     translate([-120, -wall_height/2, wall_thickness])
         rotate([-90, 0, 0])
@@ -184,10 +189,12 @@ else if (view == "qidi_bed_gable") {
             gable_doorway_portal();
 }
 else if (view == "qidi_bed_roof") {
-    // RED TERRACOTTA FILAMENT: Roof slope (200 x 200 mm flat, 0 supports) + ridge beam
+    // RED TERRACOTTA FILAMENT: Roof slope piece (155x200 flat, 0 supports)
+    // + ridge beam. Slope pieces 0 and 1 are geometrically identical ->
+    // print two copies of this export per slope (4 copies for both slopes).
     if (show_qidi_bed) qidi_build_bed();
     translate([-QIDI_X/2 + 15, -QIDI_Y/2 + 20, 0]) {
-        roof_slope_panel();
+        roof_slope_panel(piece = 0);
         translate([210, 0, 4.0])
             rotate([-90, 0, 0])
                 cylinder(r = 4.0, h = stall_length, $fn = 8);
@@ -263,13 +270,14 @@ else if (view == "gable_doorway_portal") {
     rotate([90, 0, 0]) gable_doorway_portal();
 }
 else if (view == "gable_triangle_half") {
-    rotate([90, 0, 0]) gable_triangle_half(left = true);
+    // Piece 0 = ridge quarter; print 2x this per side + mirrored piece 1
+    rotate([90, 0, 0]) gable_triangle_half(left = true, piece = 0);
 }
 else if (view == "roof_slope_panel") {
-    roof_slope_panel();
+    roof_slope_panel(piece = 0); // print 2 copies per slope (pieces 0/1 identical)
 }
 else if (view == "roof_truss_half") {
-    rotate([90, 0, 0]) roof_truss_half(left = true);
+    rotate([90, 0, 0]) roof_truss_half(left = true, piece = 0);
 }
 else if (view == "main_gate_wing") {
     rotate([-90, 0, 0]) main_gate_wing(gate_hinge_x, gate_height - tolerance, left = true);
@@ -364,17 +372,25 @@ module stable_segment_assembled(index = 0) {
     translate([aisle_width/2 - wall_thickness, 0, floor_thickness - groove_depth])
         stall_front_panel(left = false);
 
-    // Stall Dutch doors
-    y_hinge = stall_length - 4;
-    translate([-aisle_width/2, y_hinge, 0])
+    // Stall Dutch doors — hinge axis sits on the AISLE face of the front wall
+    // (offset outward by half the leaf thickness), so the leaf:
+    //   - at 0 deg closes flush over the doorway, and
+    //   - at 180 deg folds flat onto the aisle face of the stall front wall
+    //     (parallel to it, taking ZERO space in the aisle).
+    // Hinge is on the solid-wall side of the doorway (low-Y edge of the opening).
+    y_hd = stall_length - stall_door_width - 4;
+    // LEFT stall: Aisle face of front wall = -aisle_width/2 + stall_front_th
+    translate([-aisle_width/2 + stall_front_th + door_leaf_th/2, y_hd, 0])
         rotate([0, 0, -stall_door_open_angle])
             rotate([0, 0, 90])
                 stall_dutch_door();
 
-    translate([aisle_width/2, y_hinge, 0])
+    // RIGHT stall: Aisle face of front wall = aisle_width/2 - wall_thickness (mirrored leaf)
+    translate([aisle_width/2 - wall_thickness - door_leaf_th/2, y_hd, 0])
         rotate([0, 0, stall_door_open_angle])
             rotate([0, 0, -90])
-                stall_dutch_door();
+                mirror([1, 0, 0])
+                    stall_dutch_door();
 }
 
 // =====================================================================
@@ -385,22 +401,24 @@ module gable_wall_assembled(front = true) {
     dir = front ? -1 : 1;
 
     translate([0, y_pos, 0]) {
-        // 1. Left side pillar (width: 144 mm, height: 170 mm -> FITS QIDI!)
+        // 1. Left side pillar (width: 199 mm, height: 170 mm -> FITS QIDI!)
         translate([-total_width/2, 0, 0])
             gable_side_pillar(left = true);
 
-        // 2. Central doorway portal (width: 95 mm, height: 170 mm -> FITS QIDI!)
+        // 2. Central doorway portal (width: 180 mm, height: 170 mm -> FITS QIDI!)
         translate([-aisle_width/2, 0, 0])
             gable_doorway_portal(dir_y = dir);
 
-        // 3. Right side pillar (width: 144 mm, height: 170 mm -> FITS QIDI!)
+        // 3. Right side pillar (width: 199 mm, height: 170 mm -> FITS QIDI!)
         translate([aisle_width/2, 0, 0])
             gable_side_pillar(left = false);
 
-        // 4. Roof gable triangle (split into two 192 mm halves -> FITS QIDI!)
+        // 4. Roof gable triangle (split into four <150 mm quarters -> FITS QIDI!)
         translate([0, 0, wall_height + floor_thickness]) {
-            gable_triangle_half(left = true);
-            gable_triangle_half(left = false);
+            gable_triangle_half(left = true,  piece = 0);
+            gable_triangle_half(left = true,  piece = 1);
+            gable_triangle_half(left = false, piece = 0);
+            gable_triangle_half(left = false, piece = 1);
         }
 
         // 5. Gate wings
@@ -497,31 +515,47 @@ module gable_doorway_portal(dir_y = -1) {
     }
 }
 
-// Half of gable roof triangle (width: 192 mm, height: 75 mm -> FITS QIDI!)
-module gable_triangle_half(left = true) {
+// Half of gable roof triangle, optionally split into two bed-friendly quarters.
+// piece = -1: whole half (hinge detail / single-part preview only)
+// piece =  0: ridge-side quarter   (base ~145 mm -> FITS QIDI)
+// piece =  1: eave-side quarter    (base ~145 mm -> FITS QIDI)
+module gable_triangle_half(left = true, piece = -1) {
     half_base = total_width / 2;
-    color(COLOR_WALLS) {
-        difference() {
-            union() {
-                rotate([90, 0, 0])
-                    linear_extrude(height = wall_thickness)
-                        polygon(points = [
-                            [left ? -half_base : 0, 0],
-                            [left ? 0 : half_base, 0],
-                            [0, roof_pitch_height]
-                        ]);
+    x0 = piece == 1 ? -half_base : (piece == 0 ? -half_base/2 : -half_base);
+    x1 = piece == 1 ? -half_base/2 : 0;
+    // Roof run y(x) for the left half (ridge at x = 0)
+    y_top = roof_pitch_height;
 
-                if (left) {
-                    translate([-2.5, -wall_thickness + 0.8, 10])
-                        cube([2.5, wall_thickness - 1.6, roof_pitch_height - 20]);
+    module tri_section() {
+        color(COLOR_WALLS) {
+            difference() {
+                union() {
+                    rotate([90, 0, 0])
+                        linear_extrude(height = wall_thickness)
+                            polygon(points = [
+                                [x0, 0],
+                                [x1, 0],
+                                [x1, x1 == 0 ? y_top : y_top * (half_base + x1) / half_base],
+                                [x0, y_top * (half_base + x0) / half_base]
+                            ]);
+
+                    if (left && piece != 1) {
+                        // Ridge alignment tongue
+                        translate([-2.5, -wall_thickness + 0.8, 10])
+                            cube([2.5, wall_thickness - 1.6, roof_pitch_height - 20]);
+                    }
                 }
-            }
-            if (!left) {
-                translate([-0.5, -wall_thickness + 0.5, 9])
-                    cube([3.0, wall_thickness - 1.0, roof_pitch_height - 18]);
+                if (!left && piece != 1) {
+                    // Ridge alignment groove
+                    translate([-0.5, -wall_thickness + 0.5, 9])
+                        cube([3.0, wall_thickness - 1.0, roof_pitch_height - 18]);
+                }
             }
         }
     }
+
+    if (left) tri_section();
+    else mirror([1, 0, 0]) tri_section();
 }
 
 // =====================================================================
@@ -694,9 +728,12 @@ module stall_partition_panel() {
 
 module stall_front_panel(left = true) {
     h_total = 110;
-    th = 3.0;
+    th = stall_front_th;
     h_solid = 65;
-    y_hinge = stall_length - 4;
+    // Hinge sits on the SOLID part of the front wall (low-Y edge of the door opening)
+    y_hinge = stall_length - stall_door_width - 4;
+    // Hinge axis offset from the aisle face of the wall by half the door leaf thickness
+    x_axis = left ? th + door_leaf_th/2 : -door_leaf_th/2;
 
     color(COLOR_TIMBER) {
         difference() {
@@ -722,8 +759,8 @@ module stall_front_panel(left = true) {
                 cube([th + 2, stall_door_width, stall_door_height + 1]);
         }
 
-        // Filament-pin hinge frame knuckles on stall post
-        translate([th/2, y_hinge, 0]) {
+        // Filament-pin hinge frame knuckles on stall front post (aisle face)
+        translate([x_axis, y_hinge, 0]) {
             translate([0, 0, stall_knuckle_z_lower])
                 stall_post_knuckle_bracket(blind_bottom = true, h = stall_knuckle_h);
             translate([0, 0, stall_knuckle_z_upper])
@@ -751,61 +788,83 @@ module roof_segment() {
         }
     }
 
-    // Slopes
+    // Slopes (each made of two pieces joined at mid-slope -> both fit the bed)
     color(COLOR_ROOF) {
         translate([0, 0, roof_pitch_height])
             rotate([0, -roof_angle, 0])
-                translate([-slope_l, 0, -th])
-                    roof_slope_panel();
+                translate([-slope_l, 0, -th]) {
+                    roof_slope_panel(piece = 0);
+                    roof_slope_panel(piece = 1);
+                }
 
         translate([0, 0, roof_pitch_height])
             rotate([0, roof_angle, 0])
-                translate([0, 0, -th])
-                    roof_slope_panel();
+                translate([0, 0, -th]) {
+                    roof_slope_panel(piece = 0);
+                    roof_slope_panel(piece = 1);
+                }
     }
 
-    // Two-piece roof truss (each half is under 200 mm)
+    // Four-piece roof truss (each quarter is under 150 mm wide)
     color(COLOR_TIMBER) {
         translate([0, stall_length/2, 0]) {
-            roof_truss_half(left = true);
-            roof_truss_half(left = false);
+            roof_truss_half(left = true,  piece = 0);
+            roof_truss_half(left = true,  piece = 1);
+            roof_truss_half(left = false, piece = 0);
+            roof_truss_half(left = false, piece = 1);
         }
     }
 }
 
-// Single roof slope panel (approx 200 x 200 mm - prints 100% flat, 0 supports)
-module roof_slope_panel() {
+// Single roof slope panel, optionally split along the slope into two bed-friendly pieces
+// (piece = -1: whole ~309 mm panel - preview only; piece = 0: ridge half; piece = 1: eave half).
+// Each piece is ~155 x 200 mm -> FITS QIDI, prints 100% flat, 0 supports.
+module roof_slope_panel(piece = -1) {
     half_w = total_width / 2;
     slope_l = (half_w + roof_overhang) / cos(roof_angle);
     th = 3.2;
+    s0 = piece == 0 ? 0 : (piece == 1 ? slope_l/2 : 0);
+    sl = piece == -1 ? slope_l : slope_l/2;
 
     color(COLOR_ROOF) {
         difference() {
-            cube([slope_l, stall_length, th]);
+            translate([s0, 0, 0])
+                cube([sl, stall_length, th]);
             for (y = [12 : 12 : stall_length - 6]) {
-                translate([-1, y, th - 0.8])
-                    cube([slope_l + 2, 1.2, 1.5]);
+                translate([s0 - 1, y, th - 0.8])
+                    cube([sl + 2, 1.2, 1.5]);
             }
         }
     }
 }
 
-// Half-truss with ridge lap joint (width: 192 mm, height: 75 mm -> FITS QIDI!)
-module roof_truss_half(left = true) {
+// Half-truss with ridge lap joint, optionally split into two bed-friendly quarters
+// (piece = -1: whole; piece = 0: ridge quarter; piece = 1: eave quarter - each < 150 mm)
+module roof_truss_half(left = true, piece = -1) {
     beam_th = 4.0;
     half_w = total_width / 2;
+    y_top = roof_pitch_height - 2;
+    // Truss run in left-half coordinates: base from -half_w+1 to 0, peak at ridge
+    x0 = piece == 0 ? -half_w/2 : -half_w + 1;
+    x1 = piece == 0 ? 0 : -half_w/2;
 
-    color(COLOR_TIMBER) {
-        rotate([90, 0, 0]) {
-            linear_extrude(height = beam_th, center = true) {
-                polygon(points = [
-                    [left ? -half_w + 1 : 0, 0],
-                    [left ? 0 : half_w - 1, 0],
-                    [0, roof_pitch_height - 2]
-                ]);
+    module truss_section() {
+        color(COLOR_TIMBER) {
+            rotate([90, 0, 0]) {
+                linear_extrude(height = beam_th, center = true) {
+                    polygon(points = [
+                        [x0, 0],
+                        [x1, 0],
+                        [x1, x1 == 0 ? y_top : y_top * (x1 + half_w - 1) / (half_w - 1)],
+                        [x0, y_top * (x0 + half_w - 1) / (half_w - 1)]
+                    ]);
+                }
             }
         }
     }
+
+    if (left) truss_section();
+    else mirror([1, 0, 0]) truss_section();
 }
 
 // =====================================================================
@@ -971,7 +1030,10 @@ module stall_dutch_door() {
     h_lower = 60;
 
     color(COLOR_DOORS) {
-        translate([0, -knuckle_r + 0.1, floor_thickness + 1]) {
+        // Leaf band centered on the hinge axis (-door_leaf_th/2 .. +door_leaf_th/2):
+        // closed door covers the doorway flush on the aisle face,
+        // folded 180 deg it lies flat in the SAME band on the aisle face of the wall.
+        translate([0, -door_leaf_th/2, floor_thickness + 1]) {
             cube([w, th, h_lower]);
             translate([0, -0.6, 0]) {
                 cube([w, 0.6, 3]);
@@ -1069,10 +1131,16 @@ module exploded_segment_view() {
     translate([aisle_width/2 - wall_thickness - 10, 0, explosion * 0.5])
         stall_front_panel(left = false);
 
-    translate([-aisle_width/2 + 15, stall_length - 4, explosion * 0.5])
-        rotate([0, 0, 90]) stall_dutch_door();
-    translate([aisle_width/2 - 15, stall_length - 4, explosion * 0.5])
-        rotate([0, 0, -90]) stall_dutch_door();
+    // Stall Dutch doors at the new hinge positions (solid side of the opening)
+    translate([-aisle_width/2 + stall_front_th + door_leaf_th/2, stall_length - stall_door_width - 4, explosion * 0.5])
+        rotate([0, 0, -stall_door_open_angle])
+            rotate([0, 0, 90])
+                stall_dutch_door();
+    translate([aisle_width/2 - wall_thickness - door_leaf_th/2, stall_length - stall_door_width - 4, explosion * 0.5])
+        rotate([0, 0, stall_door_open_angle])
+            rotate([0, 0, -90])
+                mirror([1, 0, 0])
+                    stall_dutch_door();
 
     translate([0, 0, wall_height + floor_thickness + explosion * 1.5])
         roof_segment();
