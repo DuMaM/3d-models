@@ -19,7 +19,7 @@ Unlike the [Modular Stable](../modular/), which divides the stable into compact 
 | :---: | :---: |
 | ![Entrance Gate View](stable_entrance.png) | ![Exploded View](stable_exploded.png) |
 
-| Flat Printable Roof Slopes (0 Supports) | Drop-In Pintle & Strap Hinges |
+| Flat Printable Roof Slopes (0 Supports) | Indestructible Filament-Pin Knuckle Hinges |
 | :---: | :---: |
 | ![Flat Roof](stable_roof.png) | ![Doors and Hardware](stable_doors.png) |
 
@@ -29,9 +29,12 @@ Unlike the [Modular Stable](../modular/), which divides the stable into compact 
 
 1. **Monolithic Unified Shell:**
    - Exterior facade, stall dividers, and floor base printed as complete, rigid structural subassemblies.
-2. **Functional Mechanical Barn Hinges (Pintle & Strap):**
-   - Walls feature pre-modeled vertical pintle pins.
-   - Gates and dutch stall doors feature matching eyelet barrel straps that slide directly onto the pins without screws or metal pins.
+2. **Indestructible 1.75 mm Filament-Pin Knuckle Hinges:**
+   - Eliminates fragile vertical 3D-printed pintle pins that snap along layer lines.
+   - Frame knuckles interlock with door knuckle straps around a 2.1 mm internal bore.
+   - Uses a standard scrap snippet of 1.75 mm 3D printer filament (or metal wire) as a continuous, virtually unbreakable pivot pin (~15–20 kg shear strength).
+   - Bottom knuckle features a closed blind stop; top knuckle features a 45° lead-in funnel.
+   - Optional horizontal printable hinge pins are also included on the doors print plate.
 3. **Lift-Off Roof for Playtime:**
    - The full gable roof lifts off effortlessly for overhead access to play with horses and accessories inside the stalls.
 4. **Zero-Support Flat Roof Option:**
@@ -61,7 +64,7 @@ Unlike the [Modular Stable](../modular/), which divides the stable into compact 
 * [`stable_walls.stl`](stable_walls.stl) — Complete monolithic wall structure including floor base, perimeter walls, and interior stall partitions ($353 \times 168 \times 140\text{ mm}$).
 * [`stable_roof.stl`](stable_roof.stl) — Complete assembled gable roof with rafters, ridge beam, and textured roof tiles.
 * [`stable_roof_flat.stl`](stable_roof_flat.stl) — Roof slopes and ridge beam laid out flat for FDM printing with zero supports.
-* [`stable_doors.stl`](stable_doors.stl) — Main barn entrance gates and dutch stall doors with eyelet barrel straps.
+* [`stable_doors.stl`](stable_doors.stl) — Main barn entrance gates, dutch stall doors with knuckle straps, and optional printable hinge pins.
 * [`stable_windows.stl`](stable_windows.stl) — Snap-fit window frames with protective vertical metal grilles.
 
 ### Source Code

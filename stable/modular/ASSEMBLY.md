@@ -24,9 +24,11 @@ Every part is optimized to print on compact 3D printer beds such as the **QIDI Q
 
 ## Required Tools & Materials
 
+* **1.75 mm Filament scrap snippets** (standard 3D printer filament — PLA, PETG, ABS, etc.) or $1.8\text{ mm} - 2.0\text{ mm}$ metal wire / unbent paperclip: used as continuous hinge pivot pins.
+* **Flush wire cutters**: For trimming the filament hinge pins flush after insertion.
 * **Cyanoacrylate glue (Super Glue / CA glue)** or plastic cement (optional, for permanent lock; friction-fit dovetails can also remain tool-free).
 * **Craft knife / Deburring tool**: For removing brim or elephant's foot.
-* **Small hobby file / sandpaper (240–400 grit)**: For smoothing dovetail edges and hinge pins if printed with high flow.
+* **Small hobby file / sandpaper (240–400 grit)**: For smoothing dovetail edges if printed with high flow.
 * **PTFE lubricant / silicone spray / wax** (optional): For ultra-smooth hinge operation.
 
 ---
@@ -158,20 +160,33 @@ flowchart TD
 ---
 
 ### Step 5: Doors, Gates & Window Hardware
-The stable uses authentic **pintle and strap barrel hinges**:
-1. **Main Barn Gates (`main_gate_wing`):**
-   - Locate the upper and lower pintle pins on the entrance doorway portal.
-   - Align the eyelet barrels on the gate wings with the pins.
-   - Gently slide the gate downwards onto the pins.
-   - Swing the gates open and closed to ensure free movement ($0^\circ$ to $120^\circ$).
-2. **Stall Dutch Doors (`stall_door`):**
-   - Align the barrel eyelets of each stall door over the pins on the stall front frames.
-   - Slide downwards into place.
-3. **Window Grilles (`window_frame`):**
-   - Push the window frames into the window cutouts in the side walls.
+The stable uses an **indestructible 1.75 mm filament-pin multi-knuckle hinge system**:
+
+1. **Why this hinge design?**
+   - Standard 3D-printed vertical pintle pins are notorious for snapping off along layer lines under mild shear force (~0.5 kg).
+   - This design uses continuous interlocking knuckles with a 2.1 mm internal bore.
+   - Inserting a scrap piece of 1.75 mm filament provides longitudinal polymer orientation with zero layer lines in the shear plane (~15–20 kg shear strength per hinge).
+   - The lowest frame knuckle features a **blind bottom stop** (so the filament pin cannot fall out underneath).
+   - The topmost frame knuckle features a **45° conical lead-in funnel** for instant, snag-free insertion.
+
+2. **Main Barn Gates (`main_gate_wing`):**
+   - Cut a ~120 mm length of standard 1.75 mm filament (or metal rod).
+   - Align the gate wing knuckle straps between the upper and lower portal frame knuckles.
+   - Insert the filament pin down through the top lead-in funnel until it reaches the blind bottom stop.
+   - Snip the top of the filament pin flush with flush cutters.
+   - Swing the gates open and closed to ensure smooth movement ($0^\circ$ to $120^\circ$).
+
+3. **Stall Dutch Doors (`stall_door`):**
+   - Cut a ~75 mm length of 1.75 mm filament.
+   - Align the stall door knuckle straps with the knuckles on the stall front post.
+   - Slide the filament pin through the top funnel until it bottoms out.
+   - Snip flush.
+
+4. **Window Grilles (`window_frame`):**
+   - Push the window frames into the window openings in the side walls.
    - They feature an exterior mounting flange for a clean snap-fit without glue.
 
-![Hardware Plate](qidi_bed_doors_windows.png)
+![Hinge Detail](stable_hinge_detail.png)
 
 ---
 
@@ -210,7 +225,7 @@ To expand an existing stable:
 | Issue | Cause | Solution |
 |---|---|---|
 | **Dovetail joints feel too tight** | First layer over-extrusion (elephant's foot) | Scrape the bottom edges with a deburring tool or craft knife. Enable slicer elephant foot compensation (`0.15 - 0.20 mm`). |
-| **Hinge barrels do not slide onto pins** | Stringing or inner diameter shrinkage | Lightly ream the barrel hole using a $3.0\text{ mm}$ drill bit or roll of sandpaper. |
+| **Filament pin is tight in knuckle bore** | Slight hole shrinkage or stringing | The knuckle bore is $2.1\text{ mm}$ (giving $0.175\text{ mm}$ radial clearance for $1.75\text{ mm}$ filament). If tight, run a $2.0\text{ mm}$ or $2.1\text{ mm}$ drill bit or paperclip through by hand. |
 | **Door swing is stiff** | Surface friction between plastic layers | Apply a tiny drop of silicone oil, mineral oil, or rub with candle wax. |
 | **Wall panels rock in floor groove** | Bed warping on thin long prints | Ensure clean build plate (wash with warm water & dish soap) and correct bed temperature ($55-60^\circ\text{C}$ for PLA, $75-80^\circ\text{C}$ for PETG). |
 

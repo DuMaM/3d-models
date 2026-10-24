@@ -28,7 +28,7 @@ stable/
 * **100% QIDI Q1 Pro Compatible:** Every component is under $200\text{ mm}$ (leaving a safe $45\text{ mm}$ margin on $245\text{ mm}$ beds).
 * **Infinite Dovetail Expansion:** Expand from 2 stalls to 4, 6, 8 or more stalls by chaining modular bay segments.
 * **Multi-Color Printing Without AMS/MMU:** Pre-arranged into filament color plates (wood brown, concrete gray, facade cream, terracotta red, anthracite iron).
-* **Authentic Drop-In Pintle Hinges:** Doors and gates slide directly onto wall pins without metal screws.
+* **Indestructible 1.75 mm Filament-Pin Knuckle Hinges:** Eliminates fragile 3D-printed pintle pins that snap along layer lines. Interlocking multi-knuckles use a standard scrap snippet of 1.75 mm 3D printer filament (or metal rod) as a continuous pivot pin with blind bottom stop and 45° top lead-in chamfer.
 * **Assembly Manual:** Step-by-step assembly guide included in [`ASSEMBLY.md`](modular/ASSEMBLY.md).
 
 👉 **[Go to Modular Stable Details, STLs & Assembly Guide](modular/)**
