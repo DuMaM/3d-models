@@ -9,21 +9,19 @@ A collection of parametric, functional 3D printable designs engineered for deskt
 
 ## Projects
 
-### 🐎 [Modular Horse Stable (1:24 Scale — Schleich Compatible)](stable/)
+### 🐎 [Horse Stable Collection (1:24 Scale — Schleich Compatible)](stable/)
 
-A fully modular, expandable horse stable system designed for 1:24 scale model horses (Schleich, CollectA, Safari Ltd., Breyer 1:24, and custom 3D printed horses up to $150\text{ mm}$ tall).
+A comprehensive horse stable model collection designed for 1:24 scale model horses (Schleich, CollectA, Safari Ltd., Breyer 1:24, and custom 3D printed horses up to $150\text{ mm}$ tall).
 
-| Complete Stable Overview | Interior Stalls View |
+| [Modular Stable (QIDI Q1 Pro Optimized)](stable/modular/) | [Standard Monolithic Stable](stable/standard/) |
 | :---: | :---: |
-| [![Stable Overview](stable/stable_overview.png)](stable/) | [![Interior Stalls](stable/stable_interior.png)](stable/) |
+| [![Modular Stable](stable/modular/stable_overview.png)](stable/modular/) | [![Standard Stable](stable/standard/stable_overview.png)](stable/standard/) |
+| *Segmented dovetail panels ($\le 200\text{ mm}$), multi-color batches, expandable* | *Unified rigid shell ($353\text{ mm}$) for large-format 3D printers* |
 
-* **Infinite Modularity:** Add as many 2-stall bay segments as you wish using interlocking dovetail floor joints.
-* **100% QIDI Q1 Pro Compatible ($245 \times 245\text{ mm}$):** Every component is $\le 200\text{ mm}$, fitting easily on standard beds.
-* **Multi-Color Printing Without AMS/MMU:** Pre-arranged into color batches (timber wood, stone floor, facade walls, terracotta roof, forged black hardware).
-* **Authentic Functional Hinges:** Drop-in pintle-and-strap hinges for main barn gates and dutch stall doors without metal hardware.
-* **Removable Roof:** Roof lifts off for top-down playtime access.
+* **[Modular Stable (`stable/modular/`)](stable/modular/):** Fully split into modular segments ($\le 200\text{ mm}$) for standard $245 \times 245\text{ mm}$ printer beds (QIDI Q1 Pro). Features dovetail joints, multi-color filament batching without AMS/MMU, and an included [Assembly Guide](stable/modular/ASSEMBLY.md).
+* **[Standard Stable (`stable/standard/`)](stable/standard/):** Unified monolithic assemblies (perimeter walls, full roof, drop-in doors) for large-format 3D printers ($350\text{ mm}+$ beds).
 
-👉 **[Explore Full Documentation, STL Files & Assembly Guide in the stable/ directory](stable/)**
+👉 **[Explore Full Documentation & STLs in the stable/ directory](stable/)**
 
 ---
 

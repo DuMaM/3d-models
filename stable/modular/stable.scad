@@ -108,7 +108,7 @@ COLOR_ROOF       = [0.72, 0.25, 0.18]; // Terracotta / ceramic red
 COLOR_TIMBER     = [0.42, 0.26, 0.15]; // Brown timber & stalls
 COLOR_IRON       = [0.20, 0.20, 0.22]; // Anthracite iron / bars
 COLOR_DOORS      = [0.48, 0.28, 0.15]; // Darker wood for doors
-COLOR_WINDOWS    = [0.96, 0.96, 0.94]; // White frames
+COLOR_WINDOWS    = [0.24, 0.24, 0.26]; // Charcoal / dark iron accent frames
 COLOR_HORSE_1    = [0.35, 0.20, 0.10]; // Bay horse
 COLOR_HORSE_2    = [0.88, 0.88, 0.85]; // Gray horse
 
@@ -138,15 +138,17 @@ else if (view == "exploded_segment") {
 
 // --- QIDI Q1 PRO PRINT PLATES (By Filament Color) ---
 else if (view == "qidi_bed_stalls") {
-    // BROWN TIMBER FILAMENT: Stall front + partition (fits together on 245x245)
+    // BROWN TIMBER FILAMENT: Stall front + partition laying completely flat (fits on 245x245)
     qidi_build_bed();
-    translate([-QIDI_X/2 + 20, -QIDI_Y/2 + 15, 0]) {
-        rotate([90, 0, 0])
+    // Stall front: 200 mm long, 110 mm tall, 3 mm thick -> lay flat along Y
+    translate([-110, -stall_length/2, 3.0])
+        rotate([0, 90, 0])
             stall_front_panel(left = true);
-        translate([0, 115, 0])
-            rotate([90, 0, 0])
-                stall_partition_panel();
-    }
+
+    // Stall partition: 140 mm wide, 110 mm tall, 3 mm thick -> lay flat rotated 90 deg
+    translate([5, -stall_width/2, 3.0])
+        rotate([90, 0, 90])
+            stall_partition_panel();
 }
 else if (view == "qidi_bed_floor") {
     // GRAY CONCRETE FILAMENT: Stall floor (140x200) + Aisle floor (95x200) (combined 235x200 mm <= 245)
@@ -160,18 +162,19 @@ else if (view == "qidi_bed_floor") {
 else if (view == "qidi_bed_side_wall") {
     // WHITE/CREAM FILAMENT: Side wall panel with window (200 x 170 mm, fits on 245x245)
     qidi_build_bed();
-    translate([-QIDI_X/2 + 22, -QIDI_Y/2 + 35, 0])
-        rotate([90, 0, 0])
+    translate([-wall_height/2, -stall_length/2, wall_thickness])
+        rotate([0, 90, 0])
             wall_side_panel();
 }
 else if (view == "qidi_bed_gable") {
     // WHITE/CREAM FILAMENT: Gable side pillars (144x170) + doorway portal (95x170)
     qidi_build_bed();
-    translate([-QIDI_X/2 + 10, -QIDI_Y/2 + 35, 0]) {
-        rotate([90, 0, 0]) gable_side_pillar(left = true);
-        translate([stall_width + 8, 0, 0])
-            rotate([90, 0, 0]) gable_doorway_portal();
-    }
+    translate([-120, -wall_height/2, wall_thickness])
+        rotate([-90, 0, 0])
+            gable_side_pillar(left = true);
+    translate([26, -wall_height/2, wall_thickness])
+        rotate([-90, 0, 0])
+            gable_doorway_portal();
 }
 else if (view == "qidi_bed_roof") {
     // RED TERRACOTTA FILAMENT: Roof slope (200 x 200 mm flat, 0 supports) + ridge beam
@@ -186,15 +189,20 @@ else if (view == "qidi_bed_roof") {
 else if (view == "qidi_bed_doors_windows") {
     // ACCENT / BLACK FILAMENT: Gates, doors, windows and hinges
     qidi_build_bed();
-    translate([-QIDI_X/2 + 15, -QIDI_Y/2 + 20, 0]) {
+    translate([-110, -75, 0]) {
         rotate([-90, 0, 0]) main_gate_wing(gate_hinge_x, gate_height - tolerance, left = true);
-        translate([50, 0, 0])
+        translate([48, 0, 0])
             rotate([-90, 0, 0]) main_gate_wing(gate_hinge_x, gate_height - tolerance, left = false);
-        translate([105, 0, 0])
+        translate([98, 0, 0])
             rotate([-90, 0, 0]) stall_dutch_door();
-        translate([185, 10, 0]) rotate([90, 0, 0]) single_window();
-        translate([185, 80, 0]) rotate([90, 0, 0]) single_window();
+        translate([190, 30, 0]) rotate([90, 0, 0]) single_window();
+        translate([190, 105, 0]) rotate([90, 0, 0]) single_window();
     }
+}
+else if (view == "dovetail_detail") {
+    floor_stall_tile(left = true);
+    translate([stall_width + 16, 0, 0])
+        floor_aisle_tile();
 }
 
 // --- SINGLE PARTS (For STL Export to QIDI Slicer) ---
@@ -273,12 +281,10 @@ module stable_complete(with_roof = true) {
     }
 
     // Front gable wall (split into parts for 3D printing)
-    translate([0, 0, 0])
-        gable_wall_assembled(front = true);
+    gable_wall_assembled(front = true);
 
     // Rear gable wall
-    translate([0, segment_count * stall_length, 0])
-        gable_wall_assembled(front = false);
+    gable_wall_assembled(front = false);
 
     // Rear stall partitions
     translate([0, segment_count * stall_length, 0]) {
