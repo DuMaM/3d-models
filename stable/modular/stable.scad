@@ -196,19 +196,26 @@ else if (view == "qidi_bed_roof") {
 else if (view == "qidi_bed_doors_windows" || view == "doors_windows_hardware") {
     // ACCENT / BLACK FILAMENT: Gates, doors, windows and optional printable hinge pins
     if (show_qidi_bed) qidi_build_bed();
-    translate([-110, -75, 0]) {
+
+    // Left & right gate wings (laying flat)
+    translate([-90, -80, 0])
         rotate([-90, 0, 0]) main_gate_wing(gate_hinge_x, gate_height - tolerance, left = true);
-        translate([48, 0, 0])
-            rotate([-90, 0, 0]) main_gate_wing(gate_hinge_x, gate_height - tolerance, left = false);
-        translate([98, 0, 0])
-            rotate([-90, 0, 0]) stall_dutch_door();
-        translate([190, 30, 0]) rotate([90, 0, 0]) single_window();
-        translate([190, 105, 0]) rotate([90, 0, 0]) single_window();
-        // Optional printable pins laying flat
-        translate([185, -25, 0]) printable_hinge_pin(pin_length = 75);
-        translate([185, -45, 0]) printable_hinge_pin(pin_length = 75);
-        translate([185, -65, 0]) printable_hinge_pin(pin_length = 125);
-    }
+    translate([-40, -80, 0])
+        rotate([-90, 0, 0]) main_gate_wing(gate_hinge_x, gate_height - tolerance, left = false);
+
+    // Stall Dutch door (laying flat)
+    translate([15, -52, 0])
+        rotate([-90, 0, 0]) stall_dutch_door();
+
+    // Windows (laying flat)
+    translate([85, -50, 0]) rotate([90, 0, 0]) single_window();
+    translate([85, 20, 0])  rotate([90, 0, 0]) single_window();
+
+    // Optional printable pins laying flat along Y inside bed envelope
+    translate([65, -80, 0]) printable_hinge_pin(pin_length = 75);
+    translate([75, -80, 0]) printable_hinge_pin(pin_length = 75);
+    translate([110, -80, 0]) printable_hinge_pin(pin_length = 115);
+    translate([118, -80, 0]) printable_hinge_pin(pin_length = 115);
 }
 else if (view == "dovetail_detail") {
     floor_stall_tile(left = true);
@@ -889,7 +896,7 @@ module door_hinge_knuckle_strap(strap_w, strap_h = 10.0, left = true) {
 // Optional printable hinge pin (if user does not want to use 1.75mm filament scrap)
 module printable_hinge_pin(pin_length = 75, pin_dia = 1.9) {
     color(COLOR_IRON) {
-        rotate([0, 90, 0]) {
+        rotate([-90, 0, 0]) {
             cylinder(d = pin_dia, h = pin_length, $fn = 16);
             translate([0, 0, pin_length - 0.1])
                 cylinder(r1 = pin_dia/2, r2 = 3.2, h = 2.0, $fn = 16);
