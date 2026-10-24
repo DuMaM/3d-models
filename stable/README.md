@@ -2,6 +2,50 @@
 
 Parametryczny model modułowej stajni dla koni zaprojektowany w programie **OpenSCAD**, zoptymalizowany pod drukarkę 3D **QIDI Q1 Pro** (pole robocze 245 × 245 × 240 mm).
 
+---
+
+## Galeria Projektu
+
+### Widok Ogólny i Wnętrze z Koniem
+| Budynek stajni z modelem konia | Wnętrze stajni (rzut bez dachu) |
+| :---: | :---: |
+| ![Stajnia z koniem](stajnia_twoj_kon_calosc.png) | ![Wnętrze z koniem](stajnia_twoj_kon_wnetrze.png) |
+
+| Wrota główne i prześwit dla konia | Montaż modułowy segmentu (Exploded View) |
+| :---: | :---: |
+| ![Wrota z koniem](stajnia_twoj_kon_wrota.png) | ![Montaż modułowy](stajnia_modulowa_montaz.png) |
+
+---
+
+## Mechanika i Detale Konstrukcyjne
+
+| Tradycyjne zawiasy stajenne (sworzeń + tuleja) | Zamki jaskółczy ogon (Dovetail) w posadzce |
+| :---: | :---: |
+| ![Zbliżenie na zawiasy](stajnia_zawias_zblizenie.png) | ![Zamki jaskółczy ogon](stajnia_modulowa_zamki.png) |
+
+---
+
+## Podział na Stoły Robocze QIDI Q1 Pro (245 × 245 mm)
+
+Dzięki podziałowi na grupy kolorystyczne poszczególne elementy można wygodnie drukować z osobnych szpul filamentu bez konieczności używania systemu wielomateriałowego (AMS/MMU):
+
+| 1. Boksy Wewnętrzne (Filament Brązowy / Drewno) | 2. Posadzka (Filament Szary / Beton) |
+| :---: | :---: |
+| ![Stół: Boksy](qidi_stol_boksy.png) | ![Stół: Posadzka](qidi_stol_posadzka.png) |
+| *Front boksu + przegroda międzyboksowa* | *Posadzka boksu (140×200) + korytarz (95×200)* |
+
+| 3. Ściana Boczna (Filament Biały / Jasny) | 4. Szczyt i Brama (Filament Biały / Jasny) |
+| :---: | :---: |
+| ![Stół: Ściana boczna](qidi_stol_sciana.png) | ![Stół: Szczyt i wrota](qidi_stol_szczyt.png) |
+| *Ściana boczna z oknem (170×200 mm)* | *Filary szczytowe + portal wejściowy wrót* |
+
+| 5. Połać Dachu (Filament Czerwony / Terakota) | 6. Drzwi, Wrota i Okna (Filament Akcentowy) |
+| :---: | :---: |
+| ![Stół: Dach](qidi_stol_dach.png) | ![Stół: Drzwi i Okna](qidi_stol_drzwi_okna.png) |
+| *Połać dachu na płasko (0 podpór) + kalenica* | *Skrzydła wrót, drzwi boksowe, ramy okien* |
+
+---
+
 ## Główne Cechy Projektu
 
 1. **System Rozbudowy Segmentowej:**
@@ -26,13 +70,6 @@ Parametryczny model modułowej stajni dla koni zaprojektowany w programie **Open
    - Ściany posiadają pionowe sworznie zawiasowe (czopy).
    - Skrzydła wrót i drzwi boksów mają tuleje obrotowe nasuwane od góry na sworznie.
    - Montaż bez użycia śrub czy drucików.
-
-5. **Druk Wielokolorowy (podział na szpule filamentu):**
-   - **Boksy wewnętrzne:** np. brązowy filament (drewno)
-   - **Posadzka:** np. szary filament (beton/kamień)
-   - **Ściany zewnętrzne:** np. biały/kremowy filament
-   - **Dach:** np. czerwony/terakota filament
-   - **Drzwi, wrota, okna:** np. czarny/antracytowy filament
 
 ---
 
